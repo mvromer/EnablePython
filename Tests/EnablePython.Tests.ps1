@@ -71,12 +71,12 @@ Describe "Enable-Python" {
         }
 
         It "Enables latest system version" {
-            Enable-Python -Version latest -Scope System | Out-Null
+            { Enable-Python -Version latest -Scope System | Out-Null } | Should -Not -Throw
             "C:\MyPython3.6" | Should -BeIn $env:Path.Split( ";" )
         }
 
         It "Enables the distribution for the specific company, tag, and bitness" {
-            Enable-Python -Company "MyPythonCore" -Tag "2.7" -Bitness 64
+            { Enable-Python -Company "MyPythonCore" -Tag "2.7" -Bitness 64 } | Should -Not -Throw
             "C:\MyPython2.7" | Should -BeIn $env:Path.Split( ";" )
         }
 
@@ -86,6 +86,30 @@ Describe "Enable-Python" {
 
         It "Fails when multiple distributions are found" {
             { Enable-Python -Version "3" } | Should -Throw
+        }
+    }
+
+    Context "Integration Tests" {
+        $script:CachedPath = $null
+
+        BeforeEach {
+            $script:CachedPath = $env:Path
+        }
+
+        AfterEach {
+            $env:Path = $script:CachedPath
+        }
+
+        It "Enables the latest system version by default" {
+            { Enable-Python } | Should -Not -Throw
+            python.exe -c "import sys; print( 'Hello from Python' )" | Should -Be "Hello from Python"
+        }
+
+        It "Does not hose already set distribution if subsequent distribution fails" {
+            { Enable-Python } | Should -Not -Throw
+            python.exe -c "import sys; print( 'Hello from Python' )" | Should -Be "Hello from Python"
+            { Enable-Python -Version "2.9" } | Should -Throw
+            python.exe -c "import sys; print( 'Hello from Python again' )" | Should -Be "Hello from Python again"
         }
     }
 }
