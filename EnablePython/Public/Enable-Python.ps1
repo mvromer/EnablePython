@@ -80,7 +80,7 @@ function Enable-Python {
 
 	if( $distributions.Count -gt 1 ) {
 		Write-Host "Multiple Python distributions found matching given distribution information:"
-		$distributions | Format-Table -Property Company,Tag,Version,Bitness,Scope
+		$distributions | Format-Table -Property Company,Tag,Version,Bitness,Scope | Out-Host
 		throw "Failed to enable Python distribution. Ambiguous selection."
 	}
 
