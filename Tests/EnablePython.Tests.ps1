@@ -104,7 +104,7 @@ Describe "Enable-Python" {
         }
 
         It "Does not crash if registry has stale distribution entry" {
-            { Enable-Python -Scope CurrentUser } | Should -Not -Throw
+            { Enable-Python -Version 3 } | Should -Not -Throw
         }
     }
 
