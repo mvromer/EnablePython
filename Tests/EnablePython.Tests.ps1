@@ -89,6 +89,25 @@ Describe "Enable-Python" {
         }
     }
 
+    Context "Stale Registry Integration Tests" {
+        $script:CachedPath = $null
+
+        BeforeEach {
+            $script:CachedPath = $env:Path
+            New-Item -Path "HKCU:\Software\Python\MyPythonCore\3.3\InstallPath" -Force | Out-Null
+            Set-Item -Path "HKCU:\Software\Python\MyPythonCore\3.3\InstallPath" -Value "C:\Users\Me\AppData\MyPython3.3"
+        }
+
+        AfterEach {
+            $env:Path = $script:CachedPath
+            Remove-Item -Path "HKCU:\Software\Python\MyPythonCore" -Recurse
+        }
+
+        It "Does not crash if registry has stale distribution entry" {
+            { Enable-Python -Scope CurrentUser } | Should -Not -Throw
+        }
+    }
+
     Context "Integration Tests" {
         $script:CachedPath = $null
 
