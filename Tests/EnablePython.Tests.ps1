@@ -54,6 +54,25 @@ Describe "Get-PythonDistribution" {
             $distributions | % { $_.Scope | Should -Be "CurrentUser" }
         }
     }
+
+    Context "Integration Tests" {
+        $script:CachedPath = $null
+
+        BeforeEach {
+            $script:CachedPath = $env:Path
+            New-Item -Path "HKCU:\Software\Python\MyPythonCore\3.3\InstallPath" -Force | Out-Null
+            Set-Item -Path "HKCU:\Software\Python\MyPythonCore\3.3\InstallPath" -Value "C:\Users\Me\AppData\MyPython3.3"
+        }
+
+        AfterEach {
+            $env:Path = $script:CachedPath
+            Remove-Item -Path "HKCU:\Software\Python\MyPythonCore" -Recurse
+        }
+
+        It "Does not crash if registry has stale distribution entry" {
+            { Get-PythonDistribution } | Should -Not -Throw
+        }
+    }
 }
 
 Describe "Enable-Python" {
@@ -86,25 +105,6 @@ Describe "Enable-Python" {
 
         It "Fails when multiple distributions are found" {
             { Enable-Python -Version "3" } | Should -Throw
-        }
-    }
-
-    Context "Stale Registry Integration Tests" {
-        $script:CachedPath = $null
-
-        BeforeEach {
-            $script:CachedPath = $env:Path
-            New-Item -Path "HKCU:\Software\Python\MyPythonCore\3.3\InstallPath" -Force | Out-Null
-            Set-Item -Path "HKCU:\Software\Python\MyPythonCore\3.3\InstallPath" -Value "C:\Users\Me\AppData\MyPython3.3"
-        }
-
-        AfterEach {
-            $env:Path = $script:CachedPath
-            Remove-Item -Path "HKCU:\Software\Python\MyPythonCore" -Recurse
-        }
-
-        It "Does not crash if registry has stale distribution entry" {
-            { Enable-Python -Version 3 } | Should -Not -Throw
         }
     }
 
