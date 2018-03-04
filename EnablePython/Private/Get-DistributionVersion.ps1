@@ -13,6 +13,8 @@ function Get-DistributionVersion {
 		[string] $InstallPath
 	)
 
-	$python = Get-Command (Join-Path $InstallPath "python.exe")
-	& $python -c "import sys; print( '%d.%d.%d' % (sys.version_info.major, sys.version_info.minor, sys.version_info.micro) )"
+	$python = Get-Python -InstallPath $InstallPath
+	if( $python ) {
+		& $python -c "import sys; print( '%d.%d.%d' % (sys.version_info.major, sys.version_info.minor, sys.version_info.micro) )"
+	}
 }

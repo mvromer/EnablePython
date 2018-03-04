@@ -13,6 +13,8 @@ function Get-DistributionBitness {
 		[string] $InstallPath
 	)
 
-	$python = Get-Command (Join-Path $InstallPath "python.exe")
-	& $python -c "import struct; print( 8 * struct.calcsize( 'P' ) )"
+	$python = Get-Python -InstallPath $InstallPath
+	if( $python ) {
+		& $python -c "import struct; print( 8 * struct.calcsize( 'P' ) )"
+	}
 }

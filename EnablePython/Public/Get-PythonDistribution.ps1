@@ -95,13 +95,30 @@ function Get-PythonDistribution {
 							if( $installPathKey ) {
 								$installPath = Get-ItemPropertyValue -Path $installPathKey.PSPath -Name "(Default)"
 
+								# If we can't get the distribution version or bitness, this is usually because there is
+								# no Python interpreter installed at the given install path. This would typically happen
+								# if a distribution doesn't properly clean out its registry keys whenever it is removed.
 								$distributionVersion = Get-DistributionVersion -InstallPath $installPath
+								if( -not $distributionVersion ) {
+									Write-Warning ("Cannot determine distribution version. Skipping distribution " +
+										"located at install path $installPath (Company=$($companyKey.PSChildName), " +
+										"Tag=$($tagKey.PSChildName), Scope=$($distributionSet.Scope)).")
+									continue
+								}
+
 								if( $Version -and $Version -ne "latest" -and
 									-not (Compare-DistributionSelector $distributionVersion $Version) ) {
 									continue
 								}
 
 								$distributionBitness = Get-DistributionBitness -InstallPath $installPath
+								if( -not $distributionBitness ) {
+									Write-Warning ("Cannot determine distribution bitness. Skipping distribution " +
+										"located at install path $installPath (Company=$($companyKey.PSChildName), " +
+										"Tag=$($tagKey.PSChildName), Scope=$($distributionSet.Scope)).")
+									continue
+								}
+
 								if( $Bitness -and -not (Compare-DistributionSelector $distributionBitness $Bitness) ) {
 									continue
 								}
