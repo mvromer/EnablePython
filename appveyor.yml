@@ -94,6 +94,7 @@ install:
 
 build_script:
   - ps: Get-Module -ListAvailable
+  - ps: Get-Command Update-ModuleManifest
 
 # # XXX: This might not be useful since this is used in conjunction with auto packaging, which is
 # # done when msbuild config is used.
