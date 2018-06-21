@@ -44,7 +44,8 @@ init:
           #
           $repoUrl = "https://github.com/$env:APPVEYOR_REPO_NAME"
           $latestTag = git ls-remote --tags --refs $repoUrl |
-              % { $_ -split '\s+' | Select-Object -Index 1 | % { $_ -split '/' } | Select-Object -Index 2 } |
+              % { $_ -split '\s+' | Select-Object -Index 1 } |
+              % { $_ -split '/' | Select-Object -Index 2 } |
               ? { $_ -match $releaseVersionPattern } |
               % { [Version]$_ } |
               Sort-Object -Descending |
