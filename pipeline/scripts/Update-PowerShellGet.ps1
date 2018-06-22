@@ -16,4 +16,4 @@ Install-Module -Name PowerShellGet -Force
 Remove-Module -Name PowerShellGet -Force
 Remove-Module -Name PackageManagement -Force
 Import-Module -Name PowerShellGet -MinimumVersion 1.6.5 -Force
-Import-Module -Name PackageManagement
+Import-Module -Name PackageManagement -Force
