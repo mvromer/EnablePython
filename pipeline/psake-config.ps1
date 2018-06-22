@@ -1,0 +1,1 @@
+$config.verboseError = $true
