@@ -14,4 +14,6 @@ $ErrorActionPreferenc = "Stop"
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 Install-Module -Name PowerShellGet -Force
 Remove-Module -Name PowerShellGet -Force
+Remove-Module -Name PackageManagement -Force
 Import-Module -Name PowerShellGet -MinimumVersion 1.6.5 -Force
+Import-Module -Name PackageManagement
