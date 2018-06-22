@@ -83,8 +83,6 @@ init:
 
 install:
   - ps: |
-      & $env:APPVEYOR_BUILD_FOLDER\pipeline\scripts\Update-PowerShellGet
-  - ps: |
       & $env:APPVEYOR_BUILD_FOLDER\pipeline\scripts\Install-BuildDependencies
 
 # nuget:
