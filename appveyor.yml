@@ -83,6 +83,8 @@ init:
 
 install:
   - ps: |
+      & $env:APPVEYOR_BUILD_FOLDER\pipeline\scripts\Update-PowerShellGet
+  - ps: |
       & $env:APPVEYOR_BUILD_FOLDER\pipeline\scripts\Install-BuildDependencies
 
 # nuget:
@@ -94,7 +96,7 @@ install:
 
 build_script:
   - ps: |
-      & $env:APPVEYOR_BUILD_FOLDER\psake.ps1 BuildModule
+      & $env:APPVEYOR_BUILD_FOLDER\psake BuildModule
 
 # # XXX: This might not be useful since this is used in conjunction with auto packaging, which is
 # # done when msbuild config is used.
