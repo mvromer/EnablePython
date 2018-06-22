@@ -49,12 +49,16 @@ foreach( $paramName in $allParams.Keys ) {
 
 Push-Location $ProjectRoot
 try {
-    $PSBoundParameters.Remove( "TaskName" ) | Out-Null
+    Import-Module psake
     Invoke-psake -BuildFile $ProjectRoot\pipeline\psakefile.ps1 `
         -TaskList $TaskName `
         -parameters $buildParams `
         -nologo `
         -notr
+
+    if( -not $psake.build_success ) {
+        throw "Task $TaskName failed."
+    }
 }
 finally {
     Pop-Location
