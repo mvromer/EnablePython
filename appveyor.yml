@@ -5,16 +5,10 @@ init:
       $releaseVersionPattern = '^\d+\.\d+\.\d+$'
 
       if( $env:APPVEYOR_REPO_TAG -eq 'true' ) {
-          # Tag pushes are used to trigger pipeline runs that produce releasea packages. These should always be done
-          # from the master branch. If not, then treat that as an error.
-          if( $env:APPVEYOR_REPO_BRANCH -ne 'master' ) {
-              throw "Unexpected tag pushed to branch other than master."
-          }
-
-          # If a tag was pushed to the master branch, make sure it's a vald semantic version for one of our release
-          # packages, i.e., is of the form X.Y.Z.
+          # If a tag was pushed make sure it's a vald semantic version for one of our release packages, i.e., is of the
+          # form X.Y.Z.
           if( $env:APPVEYOR_REPO_TAG_NAME -notmatch $releaseVersionPattern ) {
-              throw "Failed to produce release package. Invalid tag $env:APPVEYOR_REPO_TAG_NAME pushed to master branch."
+              throw "Failed to produce release package. Invalid tag $env:APPVEYOR_REPO_TAG_NAME pushed."
           }
 
           # Use the tag as the version for this pipeline run.
