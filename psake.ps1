@@ -17,7 +17,10 @@ param(
     [string] $PrereleaseTag = $env:PRERELEASE_TAG,
 
     [Parameter()]
-    [uri] $TestResultsEndpoint = $env:TEST_RESULTS_ENDPOINT
+    [uri] $TestResultsEndpoint = $env:TEST_RESULTS_ENDPOINT,
+
+    [Parameter()]
+    [string] $NugetApiKey = $env:NUGET_API_KEY
 )
 
 $ErrorActionPreference = "Stop"

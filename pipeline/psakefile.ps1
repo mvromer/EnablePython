@@ -27,3 +27,12 @@ Task UploadTestResults -RequiredVariables ProjectRoot,
         -ModuleName $ModuleName `
         -TestResultsEndpoint $TestResultsEndpoint
 }
+
+Task Publish -RequiredVariables ProjectRoot,
+    ModuleName,
+    NugetApiKey {
+    & (Join-Path $ProjectRoot "pipeline\scripts\Publish-Module") `
+        -ProjectRoot $ProjectRoot `
+        -ModuleName $ModuleName `
+        -NugetApiKey $NugetApiKey
+}
