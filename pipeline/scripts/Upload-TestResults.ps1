@@ -21,7 +21,7 @@ $webclient.UploadFile( $TestResultsEndpoint, $testResultsFileName ) | Out-Null
 
 # Signal build failure if there is at least one error in our test results.
 $results = [xml](Get-Content -Path $testResultsFileName)
-$numberErrors = $results.'test-results'.errors
-if( $numberErrors -ne 0 ) {
-    throw "$numberErrors test(s) failed."
+$numberFailed = $results.'test-results'.failures
+if( $numberFailed -ne 0 ) {
+    throw "$numberFailed test(s) failed."
 }
