@@ -77,7 +77,7 @@ init:
 environment:
   TEST_RESULTS_ENDPOINT: "https://ci.appveyor.com/api/testresults/nunit/$(APPVEYOR_JOB_ID)"
   NUGET_API_KEY:
-    secure: A/QPQCfZuqVfLOcJvXCiVGu8kJyIK34eo+g7vAhLpRimzbHwuSMpzv41VLwPzQZY
+    secure: bSlVSid1/VZ6k1MYAjKODjctUKQoCsdNU8aQCFg/uDkbcjD4h1SS9npP+4seB1aL
 
 install:
   - ps: |
