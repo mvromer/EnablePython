@@ -1,6 +1,9 @@
 [CmdletBinding()]
 param(
     [Parameter( Mandatory )]
+    [string] $ProjectRoot,
+
+    [Parameter( Mandatory )]
     [string] $ModuleName,
 
     [Parameter( Mandatory )]
@@ -13,12 +16,12 @@ param(
 $ErrorActionPreference = "Stop"
 
 # Recreate any build directory we might have so we start from a pristine state.
-$buildDir = Join-Path $pwd "build"
+$buildDir = Join-Path $ProjectRoot "build"
 Remove-Item -Path $buildDir -Force -Recurse -ErrorAction Ignore
 New-Item -Path $buildDir -ItemType Directory | Out-Null
 
 # Create a new module directory in our build output and copy over the manifest file.
-$sourceModuleDir = Join-Path $pwd $ModuleName
+$sourceModuleDir = Join-Path $ProjectRoot $ModuleName
 $destModuleDir = Join-Path $buildDir $ModuleName
 $manifestFileName = "$ModuleName.psd1"
 $sourceManifest = Join-Path $sourceModuleDir $manifestFileName

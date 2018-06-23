@@ -1,5 +1,10 @@
-Import-Module $PSScriptRoot\..\EnablePython -Force
+[CmdletBinding()]
+param(
+    [Parameter()]
+    [string] $ModulePath = "$PSScriptRoot\..\EnablePython"
+)
 
+Import-Module $ModulePath -Force
 . $PSScriptRoot\Mocks.ps1
 
 Describe "Get-PythonDistribution" {

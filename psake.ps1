@@ -14,7 +14,10 @@ param(
     [string] $BaseVersionNumber = $env:BASE_VERSION_NUMBER,
 
     [Parameter()]
-    [string] $PrereleaseTag = $env:PRERELEASE_TAG
+    [string] $PrereleaseTag = $env:PRERELEASE_TAG,
+
+    [Parameter()]
+    [uri] $TestResultsEndpoint = $env:TEST_RESULTS_ENDPOINT
 )
 
 $ErrorActionPreference = "Stop"

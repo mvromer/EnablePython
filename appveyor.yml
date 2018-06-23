@@ -1,6 +1,5 @@
 image: Visual Studio 2017
 
-# NOTE: This is called BEFORE the repo is cloned
 init:
   - ps: |
       $releaseVersionPattern = '^\d+\.\d+\.\d+$'
@@ -81,6 +80,9 @@ init:
       $env:PRERELEASE_TAG = $prereleaseTag
       Update-AppveyorBuild -Version $version
 
+environment:
+  TEST_RESULTS_ENDPOINT: "https://ci.appveyor.com/api/testresults/nunit/$(APPVEYOR_JOB_ID)"
+
 install:
   - ps: |
       & $env:APPVEYOR_BUILD_FOLDER\pipeline\scripts\Install-BuildDependencies
@@ -89,28 +91,17 @@ install:
 #   project_feed: true
 #   disable_publish_on_pr: true
 
-# before_build:
-#   - ps: command
-
 build_script:
   - ps: |
-      & $env:APPVEYOR_BUILD_FOLDER\psake BuildModule
+      & $env:APPVEYOR_BUILD_FOLDER\psake Build
 
-# # XXX: This might not be useful since this is used in conjunction with auto packaging, which is
-# # done when msbuild config is used.
-# before_package:
-#   - ps: command
+test_script:
+  - ps: |
+      & $env:APPVEYOR_BUILD_FOLDER\psake Test
 
-# after_build:
-
-# before_test:
-#   - ps: command
-
-# test_script:
-#   - ps: command
-
-# after_test:
-#   - ps: command
+after_test:
+  - ps: |
+      & $env:APPVEYOR_BUILD_FOLDER\psake UploadTestResults
 
 # artifacts:
 #   - path: '*.nupkg'
