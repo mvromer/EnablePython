@@ -1,2 +1,2 @@
 build/
-Tests/test-results.xml
+Tests/*-test-results.xml
