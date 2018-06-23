@@ -63,6 +63,16 @@ function Enable-Python {
 		Write-Host "No distribution information given. Searching for latest version of the standard Python distribution."
 		$Company = "PythonCore"
 		$Version = "latest"
+
+		# If no bitness was selected, then we'll try to select the one whose bitness matches the current environment.
+		if( -not $Bitness ) {
+			$Bitness = if( [System.Environment]::Is64BitProcess ) { "64" } else { "32" }
+		}
+
+		# Unless the user is requesting a specific scope, then make sure we search the system scope.
+		if( -not $Scope ) {
+			$Scope = "System"
+		}
 	}
 
 	$getArgs = @{}
