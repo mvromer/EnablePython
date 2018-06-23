@@ -8,7 +8,7 @@ param(
     [string] $ProjectRoot = $PSScriptRoot,
 
     [Parameter()]
-    [string] $ModuleName = "EnablePython",
+    [string] $ModuleName = "PythonSelect",
 
     [Parameter()]
     [string] $BaseVersionNumber = $env:BASE_VERSION_NUMBER,

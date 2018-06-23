@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter()]
-    [string] $ModulePath = "$PSScriptRoot\..\EnablePython"
+    [string] $ModulePath = "$PSScriptRoot\..\PythonSelect"
 )
 
 Import-Module $ModulePath -Force

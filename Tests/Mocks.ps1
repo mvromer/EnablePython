@@ -19,7 +19,7 @@
 
 function Mock-Registry {
     # Get-ChildItem mocks. These retrieve the Company and Tag for a distribution.
-    Mock Get-ChildItem -ModuleName EnablePython -MockWith {
+    Mock Get-ChildItem -ModuleName PythonSelect -MockWith {
         return [PSCustomObject]@{
             PSChildName = "MyPythonCore"
             PSPath = "HKLM:\SOFTWARE\Python\MyPythonCore"
@@ -28,7 +28,7 @@ function Mock-Registry {
         $Path -and $Path -eq "HKLM:\SOFTWARE\Python"
     }
 
-    Mock Get-ChildItem -ModuleName EnablePython -MockWith {
+    Mock Get-ChildItem -ModuleName PythonSelect -MockWith {
         return [PSCustomObject]@{
             PSChildName = "MyPythonCore"
             PSPath = "HKLM:\SOFTWARE\WOW6432Node\Python\MyPythonCore"
@@ -37,7 +37,7 @@ function Mock-Registry {
         $Path -and $Path -eq "HKLM:\SOFTWARE\WOW6432Node\Python"
     }
 
-    Mock Get-ChildItem -ModuleName EnablePython -MockWith {
+    Mock Get-ChildItem -ModuleName PythonSelect -MockWith {
         return [PSCustomObject]@{
             PSChildName = "MyPythonCore"
             PSPath = "HKCU:\SOFTWARE\Python\MyPythonCore"
@@ -46,7 +46,7 @@ function Mock-Registry {
         $Path -and $Path -eq "HKCU:\SOFTWARE\Python"
     }
 
-    Mock Get-ChildItem -ModuleName EnablePython -MockWith {
+    Mock Get-ChildItem -ModuleName PythonSelect -MockWith {
         return @(
             [PSCustomObject]@{
                 PSChildName = "3.6"
@@ -60,7 +60,7 @@ function Mock-Registry {
         $Path -and $Path -eq "HKLM:\SOFTWARE\Python\MyPythonCore"
     }
 
-    Mock Get-ChildItem -ModuleName EnablePython -MockWith {
+    Mock Get-ChildItem -ModuleName PythonSelect -MockWith {
         return @(
             [PSCustomObject]@{
                 PSChildName = "2.7"
@@ -70,7 +70,7 @@ function Mock-Registry {
         $Path -and $Path -eq "HKLM:\SOFTWARE\WOW6432Node\Python\MyPythonCore"
     }
 
-    Mock Get-ChildItem -ModuleName EnablePython -MockWith {
+    Mock Get-ChildItem -ModuleName PythonSelect -MockWith {
         return @(
             [PSCustomObject]@{
                 PSChildName = "3.3"
@@ -80,11 +80,11 @@ function Mock-Registry {
         $Path -and $Path -eq "HKCU:\SOFTWARE\Python\MyPythonCore"
     }
 
-    Mock Get-ChildItem -ModuleName EnablePython -MockWith {}
+    Mock Get-ChildItem -ModuleName PythonSelect -MockWith {}
 
     # Get-Item
     #
-    Mock Get-Item -ModuleName EnablePython -MockWith {
+    Mock Get-Item -ModuleName PythonSelect -MockWith {
         return [PSCustomObject]@{
             PSPath = "HKLM:\SOFTWARE\Python\MyPythonCore\3.6\InstallPath"
         }
@@ -92,7 +92,7 @@ function Mock-Registry {
         $Path -and $Path -eq "HKLM:\SOFTWARE\Python\MyPythonCore\3.6\InstallPath"
     }
 
-    Mock Get-Item -ModuleName EnablePython -MockWith {
+    Mock Get-Item -ModuleName PythonSelect -MockWith {
         return [PSCustomObject]@{
             PSPath = "HKLM:\SOFTWARE\Python\MyPythonCore\2.7\InstallPath"
         }
@@ -100,7 +100,7 @@ function Mock-Registry {
         $Path -and $Path -eq "HKLM:\SOFTWARE\Python\MyPythonCore\2.7\InstallPath"
     }
 
-    Mock Get-Item -ModuleName EnablePython -MockWith {
+    Mock Get-Item -ModuleName PythonSelect -MockWith {
         return [PSCustomObject]@{
             PSPath = "HKLM:\SOFTWARE\WOW6432Node\Python\MyPythonCore\2.7\InstallPath"
         }
@@ -108,7 +108,7 @@ function Mock-Registry {
         $Path -and $Path -eq "HKLM:\SOFTWARE\WOW6432Node\Python\MyPythonCore\2.7\InstallPath"
     }
 
-    Mock Get-Item -ModuleName EnablePython -MockWith {
+    Mock Get-Item -ModuleName PythonSelect -MockWith {
         return [PSCustomObject]@{
             PSPath = "HKCU:\SOFTWARE\Python\MyPythonCore\3.3\InstallPath"
         }
@@ -116,77 +116,77 @@ function Mock-Registry {
         $Path -and $Path -eq "HKCU:\SOFTWARE\Python\MyPythonCore\3.3\InstallPath"
     }
 
-    Mock Get-Item -ModuleName EnablePython -MockWith {}
+    Mock Get-Item -ModuleName PythonSelect -MockWith {}
 
     # Get-ItemPropertyValue
     #
-    Mock Get-ItemPropertyValue -ModuleName EnablePython -MockWith {
+    Mock Get-ItemPropertyValue -ModuleName PythonSelect -MockWith {
         return "C:\MyPython3.6"
     } -ParameterFilter {
         $Path -and $Path -eq "HKLM:\SOFTWARE\Python\MyPythonCore\3.6\InstallPath"
     }
 
-    Mock Get-ItemPropertyValue -ModuleName EnablePython -MockWith {
+    Mock Get-ItemPropertyValue -ModuleName PythonSelect -MockWith {
         return "C:\MyPython2.7"
     } -ParameterFilter {
         $Path -and $Path -eq "HKLM:\SOFTWARE\Python\MyPythonCore\2.7\InstallPath"
     }
 
-    Mock Get-ItemPropertyValue -ModuleName EnablePython -MockWith {
+    Mock Get-ItemPropertyValue -ModuleName PythonSelect -MockWith {
         return "C:\MyPython2.7-x86"
     } -ParameterFilter {
         $Path -and $Path -eq "HKLM:\SOFTWARE\WOW6432Node\Python\MyPythonCore\2.7\InstallPath"
     }
 
-    Mock Get-ItemPropertyValue -ModuleName EnablePython -MockWith {
+    Mock Get-ItemPropertyValue -ModuleName PythonSelect -MockWith {
         return "C:\Users\Me\AppData\MyPython3.3"
     } -ParameterFilter {
         $Path -and $Path -eq "HKCU:\SOFTWARE\Python\MyPythonCore\3.3\InstallPath"
     }
 
-    Mock Get-ItemPropertyValue -ModuleName EnablePython -MockWith {}
+    Mock Get-ItemPropertyValue -ModuleName PythonSelect -MockWith {}
 
     # Get-DistributionVersion
     #
-    Mock Get-DistributionVersion -ModuleName EnablePython -MockWith {
+    Mock Get-DistributionVersion -ModuleName PythonSelect -MockWith {
         return "3.6"
     } -ParameterFilter {
         $InstallPath -and $InstallPath -eq "C:\MyPython3.6"
     }
 
-    Mock Get-DistributionVersion -ModuleName EnablePython -MockWith {
+    Mock Get-DistributionVersion -ModuleName PythonSelect -MockWith {
         return "2.7"
     } -ParameterFilter {
         $InstallPath -and $InstallPath -eq "C:\MyPython2.7"
     }
 
-    Mock Get-DistributionVersion -ModuleName EnablePython -MockWith {
+    Mock Get-DistributionVersion -ModuleName PythonSelect -MockWith {
         return "2.7"
     } -ParameterFilter {
         $InstallPath -and $InstallPath -eq "C:\MyPython2.7-x86"
     }
 
-    Mock Get-DistributionVersion -ModuleName EnablePython -MockWith {
+    Mock Get-DistributionVersion -ModuleName PythonSelect -MockWith {
         return "3.3"
     } -ParameterFilter {
         $InstallPath -and $InstallPath -eq "C:\Users\Me\AppData\MyPython3.3"
     }
 
-    Mock Get-DistributionVersion -ModuleName EnablePython -MockWith {}
+    Mock Get-DistributionVersion -ModuleName PythonSelect -MockWith {}
 
     # Get-DistributionBitness
     #
-    Mock Get-DistributionBitness -ModuleName EnablePython -MockWith {
+    Mock Get-DistributionBitness -ModuleName PythonSelect -MockWith {
         return "64"
     } -ParameterFilter {
         $InstallPath -and @("C:\MyPython3.6", "C:\MyPython2.7", "C:\Users\Me\AppData\MyPython3.3").Contains( $InstallPath )
     }
 
-    Mock Get-DistributionBitness -ModuleName EnablePython -MockWith {
+    Mock Get-DistributionBitness -ModuleName PythonSelect -MockWith {
         return "32"
     } -ParameterFilter {
         $InstallPath -and $InstallPath -eq "C:\MyPython2.7-x86"
     }
 
-    Mock Get-DistributionBitness -ModuleName EnablePython -MockWith {}
+    Mock Get-DistributionBitness -ModuleName PythonSelect -MockWith {}
 }
