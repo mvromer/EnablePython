@@ -7,7 +7,7 @@ List all available Python distributions available on a system and select the one
 * Whether the bundled interpreter is 32- or 64-bit
 * Whether the distribution is installed for all users or just the current user
 
-Distributions are expected to adhere to [PEP 514](https://www.python.org/dev/peps/pep-0514/), which explains rules for how Python distributions are to register themselves through the registry on Windows environments. Any distribution that adheres to this PEP (e.g., the standard Pythong distribution, Anaconda, etc.) can be discovered and enabled with the cmdlets provided in this module.
+Distributions are expected to adhere to [PEP 514](https://www.python.org/dev/peps/pep-0514/), which explains rules for how Python distributions are to register themselves through the registry on Windows environments. Any distribution that adheres to this PEP (e.g., the standard Python distribution, Anaconda, etc.) can be discovered and enabled with the cmdlets provided in this module.
 
 ## Identifying Python Distributions
 According to PEP 514, a Python distribution is identified by a pair of values: the distribution's company and the tag. As an example, the standard Python 3.6.5 distribution is identified by the company PythonCore with the tag `3.6`. As another example, the 64-bit Anaconda distribution containing Python 3.6.2 is identified by the company ContinuumAnalytics with the tag `Anaconda36-64`.
