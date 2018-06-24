@@ -16,7 +16,7 @@ On Windows, a Python distribution can be installed either for a single user or f
 
 As a matter convenience, this module will inspect each Python distribution it discovers and determine the bundled interpreter's 3-part version number. This version number can be used to help identify a particular Python distribution.
 
-The `Get-PythonDistribution` can be used get a list of Python distributions available on the system so long as they adhere to PEP 514. With no arguments, this will return all Python distributions found on the system.
+The `Get-PythonDistribution` cmdlet can be used get a list of Python distributions available on the system so long as they adhere to PEP 514. With no arguments, this will return all Python distributions found on the system.
 
 ```
 PS C:\> Get-PythonDistribution
@@ -70,7 +70,7 @@ Distributions can also match against filter criteria that is only partially give
 
 1. The distribution's property matches exactly the filtered value.
 2. The distribution's property is prefixed by the filtered value.
-3. The distribution's property is "like" the filtered value (according to the rules of the -like operator). This means the filtered value can contain wildcard characters.
+3. The distribution's property is "like" the filtered value (according to the rules of the `-like` operator). This means the filtered value can contain wildcard characters.
 
 This feature is commonly used when filtering distributions based on their version number. Rather than knowing the full version number, end users can specify a partial version number to retrieve the desired distribution. As an example, the following retrieves all Python 3.6 distributions available:
 
@@ -96,7 +96,7 @@ InstallPath : C:\Python36\
 ## Enabling a Python Distribution
 Once a Python distribution has been identified, it can be enabled with the `Enable-Python` cmdlet. Enabling a distribution entails adding that distribution's installation and script directories to the current session's PATH. References to other Python distributions are scrubbed from the PATH.
 
-The distribution to enable is selected by passing the same type of filtering criteria to `Enable-Python` that can be passed to `Get-PythonDistribution`. The filtering parameters that can be passed to the former cmdlet behave exactly the same as the filtering parameters that can be passed to the latter cmdlet. If the set of filtering criteria match more than one distribution or no distributions, then an error is thrown.
+The distribution to enable is selected by passing the same type of filtering criteria to `Enable-Python` that can be passed to `Get-PythonDistribution`. The filtering parameters that can be passed to the former cmdlet behave exactly the same as the filtering parameters that can be passed to the latter cmdlet. If the set of filtering criteria matches more than one distribution or no distributions, then an error is thrown.
 
 For example, the following enables Python 2.7 in the current session:
 
